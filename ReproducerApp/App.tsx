@@ -13,17 +13,12 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -62,6 +57,9 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [text, onChangeText] = React.useState('');
+  const [multilineText, onChangeMultilineText] = React.useState('');
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -71,25 +69,29 @@ function App(): React.JSX.Element {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <Section title="TextInput" />
+          <TextInput
+            onChangeText={onChangeText}
+            value={text}
+            style={{
+              ...styles.textInput,
+              backgroundColor: isDarkMode ? Colors.white : Colors.black,
+            }}
+          />
+          <Section title="TextInput with multiline" />
+          <TextInput
+            multiline
+            onChangeText={onChangeMultilineText}
+            value={multilineText}
+            style={{
+              ...styles.textInput,
+              backgroundColor: isDarkMode ? Colors.white : Colors.black,
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -112,6 +114,11 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  textInput: {
+    padding: 5,
+    height: 40,
+    width: '100%',
   },
 });
 
